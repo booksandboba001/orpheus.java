@@ -1,0 +1,7 @@
+.gradle/
+build/
+*.class
+.idea/
+__pycache__/
+game/build/
+orpheus-itch.zip
