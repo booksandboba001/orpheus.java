@@ -5,3 +5,4 @@ build/
 __pycache__/
 game/build/
 orpheus-itch.zip
+.venv/
