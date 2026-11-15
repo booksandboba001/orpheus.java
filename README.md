@@ -1,16 +1,17 @@
 # Orpheus
 
-A small game written in Python with [pygame](https://www.pygame.org).
-All the code is in `game/main.py`.
+A small game written in Java (Swing). Source is in `src/`.
 
 ## Run it
-    pip install pygame-ce
-    python game/main.py
+    cd src
+    javac *.java
+    java Player
 
-## Put it on itch.io (playable in the browser)
-    pip install pygbag
-    pygbag --build game
+## Share it (itch.io)
+Swing can't run in the browser, so upload a downloadable JAR instead:
 
-Then zip the contents of `game/build/web/` and upload that zip on itch as an
-"HTML" project, ticking "This file will be played in the browser".
-(`pygbag game` instead builds and serves it at http://localhost:8000 to test first.)
+    mkdir -p out && javac -d out src/*.java
+    jar cfe orpheus.jar Player -C out .
+
+Upload `orpheus.jar` on itch as a regular downloadable file (players need Java installed
+and can run it with `java -jar orpheus.jar`).
