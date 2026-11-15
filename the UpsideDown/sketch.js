@@ -1,7 +1,7 @@
-await Canvas();
+ await Canvas();
 world.gravity.y = 10;
 world.height = 400;
-world.color = 'skyblue';
+world.color = 'black';
 imageMode(CORNER);
 
 let timer = 0;
@@ -11,7 +11,7 @@ let hitCooldown = 0;
 let canJump = false;
 
 let obstacle = new Sprite();
-obstacle.img = 'assets/stranger-things.png';
+obstacle.img = 'assets/demo.png';
 obstacle.width = 50;
 obstacle.height = 50;
 // KINEMATIC lets the obstacle move smoothly and keep its collision hitbox synced
@@ -21,6 +21,7 @@ obstacle.x = -325;
 obstacle.y = -25;
 
 let ball = new Sprite();
+ball.img = 'assets/el2.png';
 ball.diameter = 50;
 ball.color = 'orange';
 // Box2D puts resting bodies to sleep, which freezes the ball on the tightrope
@@ -45,7 +46,7 @@ tightropeA.width = screen.width;
 tightropeA.physics = STATIC;
 tightropeA.y = 0;
 tightropeA.height = 10;
-tightropeA.color = 'black';
+tightropeA.color = 'red';
 
 let ceilingA = new Sprite();
 ceilingA.x = 0;
@@ -55,6 +56,24 @@ ceilingA.y = -400;
 ceilingA.height = 50;
 ceilingA.color = 'transparent';
 ceilingA.stroke = 'transparent';
+
+let leftWall = new Sprite(-width / 2 - 25, 0, 50, height, STATIC);
+leftWall.color = 'transparent';
+leftWall.stroke = 'transparent';
+
+let rightWall = new Sprite(width / 2 + 25, 0, 50, height, STATIC);
+rightWall.color = 'transparent';
+rightWall.stroke = 'transparent';
+
+// Top and bottom screen walls (keeps ball inside visible canvas)
+let topWall = new Sprite(0, -height / 2 - 25, width, 50, STATIC);
+topWall.color = 'transparent';
+topWall.stroke = 'transparent';
+
+let bottomWall = new Sprite(0, height / 2 + 25, width, 50, STATIC);
+bottomWall.color = 'transparent';
+bottomWall.stroke = 'transparent';
+
 
 let heart1 = new Sprite(-width / 2 + 100, -height / 2 + 25, 50, 50);
 heart1.img = 'assets/heart1.png';
@@ -74,6 +93,7 @@ heart3.img.scale = 0.5;
 heart3.physics = STATIC;
 heart3.overlaps(ceilingA);
 
+let bgImg = await loadImage('assets/bg.png');
 // let the ball pass through the obstacle so we can detect the hit ourselves
 ball.overlaps(obstacle);
 
@@ -94,14 +114,23 @@ q5.draw = function () {
     textSize(32);
     textAlign(CENTER, CENTER);
     text('game over', 0, 0);
+	let button = createButton('restart');
+	button.position(width / 2 - 50, height / 2 + 20);
+	button.mousePressed(function() {
+	  location.reload();
+	});
+	
     noLoop();
     return;
-  }
-
-  background('skyblue');
-  fill('black');
+  }else{
+	background('black');
+  image(bgImg, -width / 2, -height / 2, width, height);
+  fill('white');
   textAlign(CENTER, CENTER);
   text('use the arrow keys to move', 0, -50);
+
+  }
+   
 
   // Horizontal movement
   ball.vel.x = (kb.pressing('right') ? 5 : 0) - (kb.pressing('left') ? 5 : 0);
