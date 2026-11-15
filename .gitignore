@@ -1,8 +1,5 @@
-.gradle/
-build/
 *.class
+out/
+*.jar
 .idea/
-__pycache__/
-game/build/
-orpheus-itch.zip
-.venv/
+.DS_Store
